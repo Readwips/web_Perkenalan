@@ -105,15 +105,15 @@ export default function Home() {
         <button className="brand" onClick={() => changeView("overview")} aria-label="Buka overview">
           <span className="brandMark">SA</span>
           <span>
-            <strong>SETYO.A</strong>
+            <strong>SETYO AGUNG P</strong>
             <small>IT OPERATIONS</small>
           </span>
         </button>
 
         <div className="identityCard">
-          <div className="avatar">SP</div>
+          <img className="avatar" src="/setyo-agung-prabowo.jpg" alt="Foto Setyo Agung P" />
           <div>
-            <strong>Setyo Agung Prabowo</strong>
+            <strong>SETYO AGUNG P</strong>
             <span>System Information Graduate</span>
           </div>
         </div>
