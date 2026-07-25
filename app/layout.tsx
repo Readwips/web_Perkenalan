@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -13,38 +12,34 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export async function generateMetadata(): Promise<Metadata> {
-  const requestHeaders = await headers();
-  const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host");
-  const forwardedProtocol = requestHeaders.get("x-forwarded-proto");
-  const protocol = forwardedProtocol ?? (host?.startsWith("localhost") ? "http" : "https");
-  const origin = host
-    ? `${protocol}://${host}`
-    : "https://setyo-agung-it-dashboard.sroczynskimontierth9.chatgpt.site";
+const isGitHubPages = process.env.GITHUB_PAGES === "true";
+const siteOrigin = isGitHubPages
+  ? "https://readwips.github.io/web_Perkenalan"
+  : "https://setyo-agung-it-dashboard.sroczynskimontierth9.chatgpt.site";
 
-  return {
-    metadataBase: new URL(origin),
+export const metadata: Metadata = {
+  metadataBase: new URL(siteOrigin),
+  title: "Setyo Agung Prabowo - IT Career Dashboard",
+  description:
+    "Portofolio Sistem Informasi, data, web development, dan IT support milik Setyo Agung Prabowo.",
+  icons: {
+    icon: `${siteOrigin}/favicon.svg`,
+    shortcut: `${siteOrigin}/favicon.svg`,
+  },
+  openGraph: {
     title: "Setyo Agung Prabowo - IT Career Dashboard",
-    description:
-      "Portofolio Sistem Informasi, data, web development, dan IT support milik Setyo Agung Prabowo.",
-    icons: {
-      icon: "/favicon.svg",
-      shortcut: "/favicon.svg",
-    },
-    openGraph: {
-      title: "Setyo Agung Prabowo - IT Career Dashboard",
-      description: "System Information, Data, Web Development, dan IT Support.",
-      type: "website",
-      images: [{ url: `${origin}/og.png`, width: 1734, height: 907, alt: "Setyo Agung Prabowo - IT Career Dashboard" }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "Setyo Agung Prabowo - IT Career Dashboard",
-      description: "System Information, Data, Web Development, dan IT Support.",
-      images: [`${origin}/og.png`],
-    },
-  };
-}
+    description: "System Information, Data, Web Development, dan IT Support.",
+    type: "website",
+    url: siteOrigin,
+    images: [{ url: `${siteOrigin}/og.png`, width: 1734, height: 907, alt: "Setyo Agung Prabowo - IT Career Dashboard" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Setyo Agung Prabowo - IT Career Dashboard",
+    description: "System Information, Data, Web Development, dan IT Support.",
+    images: [`${siteOrigin}/og.png`],
+  },
+};
 
 export default function RootLayout({
   children,

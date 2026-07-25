@@ -9,12 +9,14 @@ type View =
   | "learning"
   | "profile";
 
-const navItems: { id: View; label: string; mark: string }[] = [
-  { id: "overview", label: "Overview", mark: "OV" },
-  { id: "projects", label: "Projects", mark: "PR" },
-  { id: "sql", label: "SQL Lab", mark: "SQ" },
-  { id: "learning", label: "Learning", mark: "LR" },
-  { id: "profile", label: "Profile", mark: "ME" },
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+const navItems: { id: View; label: string }[] = [
+  { id: "overview", label: "Overview" },
+  { id: "projects", label: "Projects" },
+  { id: "sql", label: "SQL Lab" },
+  { id: "learning", label: "Learning" },
+  { id: "profile", label: "Profile" },
 ];
 
 const projects = [
@@ -111,7 +113,7 @@ export default function Home() {
         </button>
 
         <div className="identityCard">
-          <img className="avatar" src="/setyo-agung-prabowo.jpg" alt="Foto Setyo Agung P" />
+          <img className="avatar" src={`${basePath}/setyo-agung-prabowo.jpg`} alt="Foto Setyo Agung P" />
           <div>
             <strong>SETYO AGUNG P</strong>
             <span>System Information Graduate</span>
@@ -126,7 +128,6 @@ export default function Home() {
               className={active === item.id ? "active" : ""}
               onClick={() => changeView(item.id)}
             >
-              <span className="navMark">{item.mark}</span>
               {item.label}
             </button>
           ))}
@@ -191,7 +192,7 @@ export default function Home() {
                   </p>
                   <div className="heroActions">
                     <button className="primaryButton" onClick={() => changeView("projects")}>Lihat proyek <span>→</span></button>
-                    <a className="secondaryButton" href="/CV_Setyo_Agung_Prabowo.pdf" download>Download CV</a>
+                    <a className="secondaryButton" href={`${basePath}/CV_Setyo_Agung_Prabowo.pdf`} download>Download CV</a>
                   </div>
                 </div>
                 <div className="heroSignal">
@@ -320,13 +321,13 @@ export default function Home() {
             <section className="view animateIn">
               <PageTitle eyebrow="PROFILE / CONTACT" title="Teknologi yang dekat dengan kebutuhan operasional." copy="Saya mencari tempat untuk bertumbuh sambil membantu tim bekerja lebih tertib, cepat, dan berbasis data." />
               <div className="profileHero">
-                <div className="profilePortrait"><img src="/setyo-agung-prabowo.jpg" alt="Potret formal Setyo Agung Prabowo" /><i>AVAILABLE</i></div>
+                <div className="profilePortrait"><img src={`${basePath}/setyo-agung-prabowo.jpg`} alt="Potret formal Setyo Agung Prabowo" /><i>AVAILABLE</i></div>
                 <div className="profileIntro">
                   <span className="sectionLabel">ABOUT ME</span>
                   <h2>Setyo Agung Prabowo</h2>
                   <p className="profileLead">S1 Sistem Informasi · Web Development · Data Processing · IT Support</p>
                   <p>Lulusan S1 Sistem Informasi dengan pemahaman dalam pengembangan web, pengolahan data, dokumentasi, dan analisis proses bisnis. Terbiasa menyusun laporan, mengolah data, serta menganalisis permasalahan secara terstruktur. Teliti, adaptif, komunikatif, dan terus belajar teknologi baru.</p>
-                  <div className="contactActions"><a className="primaryButton" href="mailto:setyoagungprab@gmail.com">Kirim email <span>→</span></a><a className="secondaryButton" href="https://github.com/Readwips" target="_blank" rel="noreferrer">GitHub</a><a className="secondaryButton" href="/CV_Setyo_Agung_Prabowo.pdf" download>Download CV</a></div>
+                  <div className="contactActions"><a className="primaryButton" href="mailto:setyoagungprab@gmail.com">Kirim email <span>→</span></a><a className="secondaryButton" href="https://github.com/Readwips" target="_blank" rel="noreferrer">GitHub</a><a className="secondaryButton" href={`${basePath}/CV_Setyo_Agung_Prabowo.pdf`} download>Download CV</a></div>
                 </div>
               </div>
               <div className="profileFacts">
