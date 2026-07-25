@@ -23,40 +23,58 @@ const navItems: { id: View; label: string; mark: string }[] = [
 
 const projects = [
   {
-    name: "Dashboard Penjualan UMKM",
-    type: "Data & Business Intelligence",
+    name: "LogiTrack AI",
+    type: "Logistics & Operations System",
     status: "Completed",
     problem:
-      "Transaksi manual membuat pemilik usaha sulit membaca produk terlaris dan pergerakan stok.",
+      "Pengiriman dan pergerakan kontainer membutuhkan satu sumber data yang dapat dipantau oleh admin, operator, dan pelanggan.",
     solution:
-      "Dashboard operasional untuk mencatat transaksi, mengelola stok, dan merangkum kinerja penjualan.",
-    stack: ["Next.js", "PostgreSQL", "Tailwind", "REST API"],
-    metric: "5 tabel relasional",
+      "Sistem Laravel dengan CRUD master data, transaksi pengiriman, tracking publik, dashboard Chart.js, REST API, dan AI assistant.",
+    stack: ["Laravel", "MySQL", "REST API", "Chart.js", "Tailwind"],
+    metric: "3 role pengguna",
     accent: "lime",
+    url: "https://github.com/Readwips/web_tracking_barang",
+    demo: "https://readwips.github.io/web_tracking_barang/",
   },
   {
-    name: "Job Application Tracker",
-    type: "Personal Information System",
-    status: "In progress",
+    name: "CareerPath Job Tracker",
+    type: "Mobile-first Career System",
+    status: "Completed",
     problem:
       "Riwayat lamaran tersebar dan tindak lanjut setiap perusahaan mudah terlewat.",
     solution:
-      "Satu sistem untuk memantau status, jadwal interview, catatan, dan performa pencarian kerja.",
-    stack: ["TypeScript", "CRUD", "Analytics", "Local Data"],
-    metric: "25 lamaran terlacak",
+      "Aplikasi mobile-first yang dapat berjalan offline, memantau seluruh pipeline lamaran, dan tersedia sebagai Android APK.",
+    stack: ["HTML", "CSS", "JavaScript", "Android", "Offline"],
+    metric: "Web + Android APK",
     accent: "orange",
+    url: "https://github.com/Readwips/web_lamaran_track2",
   },
   {
-    name: "Chat WA to Excel",
+    name: "WhatsApp to Google Sheets",
     type: "Workflow Automation",
-    status: "Prototype",
+    status: "Completed",
     problem:
-      "Data administrasi dari percakapan perlu dipindahkan ke spreadsheet secara berulang.",
+      "Pesanan dari percakapan WhatsApp perlu dipindahkan ke spreadsheet secara manual dan berulang.",
     solution:
-      "Alur ekstraksi data terstruktur yang mengurangi pekerjaan input manual dan kesalahan format.",
-    stack: ["JavaScript", "Excel", "Data Parsing"],
-    metric: "1 alur otomatis",
+      "Otomasi Node.js yang membaca pesan masuk, mengekstrak item dan jumlah, lalu menyimpannya ke Google Sheets secara real-time.",
+    stack: ["Node.js", "WhatsApp Web.js", "Google Sheets API", "Data Parsing"],
+    metric: "Real-time automation",
     accent: "blue",
+    url: "https://github.com/Readwips/chat-wa-to-excel",
+  },
+  {
+    name: "Vivy Responsive Website",
+    type: "Frontend Web Experience",
+    status: "Completed",
+    problem:
+      "Informasi cerita, karakter, dan dunia Vivy membutuhkan presentasi web yang ringkas dan responsif.",
+    solution:
+      "Website frontend responsif yang menyajikan konten visual terstruktur menggunakan HTML, CSS, dan JavaScript.",
+    stack: ["HTML", "CSS", "JavaScript", "Responsive Design"],
+    metric: "15 commits",
+    accent: "orange",
+    url: "https://github.com/Readwips/web_vivy",
+    demo: "https://readwips.github.io/web_vivy/",
   },
 ];
 
@@ -184,7 +202,7 @@ export default function Home() {
           <span className="pulseDot" />
           <div>
             <strong>Available for work</strong>
-            <small>Jakarta · Remote / On-site</small>
+            <small>Bojonegoro · Remote / On-site</small>
           </div>
         </div>
       </aside>
@@ -214,7 +232,7 @@ export default function Home() {
           </div>
           <div className="topActions">
             <span className="liveBadge"><i /> SYSTEM ONLINE</span>
-            <button className="roundButton" onClick={() => window.print()} aria-label="Cetak profil">↗</button>
+            <a className="roundButton" href="https://github.com/Readwips" target="_blank" rel="noreferrer" aria-label="Buka GitHub Setyo">↗</a>
           </div>
         </div>
 
@@ -239,7 +257,7 @@ export default function Home() {
                   </p>
                   <div className="heroActions">
                     <button className="primaryButton" onClick={() => changeView("projects")}>Lihat proyek <span>→</span></button>
-                    <button className="secondaryButton" onClick={() => window.print()}>Cetak profil</button>
+                    <a className="secondaryButton" href="/CV_Setyo_Agung_Prabowo.pdf" download>Download CV</a>
                   </div>
                 </div>
                 <div className="heroSignal">
@@ -256,8 +274,8 @@ export default function Home() {
               <div className="statGrid">
                 <article className="statCard limeCard">
                   <span>01 / PROJECTS</span>
-                  <strong>06</strong>
-                  <p>Produk digital & studi kasus</p>
+                  <strong>11</strong>
+                  <p>Repository publik di GitHub</p>
                   <button onClick={() => changeView("projects")}>Jelajahi ↗</button>
                 </article>
                 <article className="statCard">
@@ -343,7 +361,13 @@ export default function Home() {
                       <div><span>THE SOLUTION</span><p>{project.solution}</p></div>
                     </div>
                     <div className="tagRow">{project.stack.map((tag) => <span key={tag}>{tag}</span>)}</div>
-                    <div className="projectFooter"><strong>{project.metric}</strong><button>Studi kasus <span>↗</span></button></div>
+                    <div className="projectFooter">
+                      <strong>{project.metric}</strong>
+                      <div className="projectLinks">
+                        {project.demo && <a href={project.demo} target="_blank" rel="noreferrer">Live demo ↗</a>}
+                        <a href={project.url} target="_blank" rel="noreferrer">GitHub ↗</a>
+                      </div>
+                    </div>
                   </article>
                 ))}
               </div>
@@ -442,16 +466,16 @@ export default function Home() {
                 <article className="journeyPanel">
                   <span className="sectionLabel">LEARNING JOURNEY</span>
                   {[
-                    ["2025", "Web foundation", "HTML · CSS · JavaScript"],
-                    ["2026", "Information systems", "SQL · Database Design · Next.js · REST API · Git · Linux"],
-                    ["NOW", "Operational maturity", "Docker · Cloud · CI/CD"],
+                    ["2018–2021", "Teknik Elektronika Industri", "SMKN 2 Bojonegoro · dasar perangkat keras dan elektronika"],
+                    ["2021–2025", "S1 Sistem Informasi", "Universitas Terbuka · data, dokumentasi sistem, dan analisis proses bisnis"],
+                    ["NOW", "Project-based learning", "Laravel · MySQL · REST API · JavaScript · workflow automation"],
                   ].map(([year, title, skills], index) => <div className="journeyItem" key={year}><time>{year}</time><i className={index === 2 ? "current" : ""} /><div><strong>{title}</strong><p>{skills}</p>{index === 2 && <StatusPill tone="positive">Currently learning</StatusPill>}</div></div>)}
                 </article>
                 <div className="skillPanels">
                   {[
-                    ["Database", [["MySQL", "Used in project"], ["SQL JOIN", "Used in project"], ["Normalization", "Understanding"], ["Index optimization", "Learning"]]],
-                    ["Programming", [["HTML / CSS", "Comfortable"], ["JavaScript", "Intermediate"], ["Next.js", "Project experience"], ["PHP", "Basic"]]],
-                    ["IT Support", [["Windows troubleshooting", "Experience"], ["Hardware checking", "Experience"], ["Network basics", "Understanding"], ["Printer setup", "Experience"]]],
+                    ["Data & Database", [["MySQL", "Used in LogiTrack"], ["Data processing", "Experience"], ["Data validation", "Experience"], ["SQL query", "Project practice"]]],
+                    ["Programming", [["Laravel / PHP", "Project experience"], ["JavaScript", "Project experience"], ["HTML / CSS", "Comfortable"], ["REST API", "Used in LogiTrack"]]],
+                    ["IT & Systems", [["Basic networking", "Understanding"], ["Hardware / software troubleshooting", "Understanding"], ["System documentation", "Experience"], ["ERP fundamentals", "Basic"]]],
                   ].map(([group, rows]) => <article className="skillPanel" key={group as string}><h2>{group as string}</h2>{(rows as string[][]).map(([skill, level]) => <div key={skill}><span>{skill}</span><strong>{level}</strong></div>)}</article>)}
                 </div>
               </div>
@@ -462,20 +486,31 @@ export default function Home() {
             <section className="view animateIn">
               <PageTitle eyebrow="PROFILE / CONTACT" title="Teknologi yang dekat dengan kebutuhan operasional." copy="Saya mencari tempat untuk bertumbuh sambil membantu tim bekerja lebih tertib, cepat, dan berbasis data." />
               <div className="profileHero">
-                <div className="profilePortrait"><span>SA</span><i>AVAILABLE</i></div>
+                <div className="profilePortrait"><img src="/setyo-agung-prabowo.jpg" alt="Potret formal Setyo Agung Prabowo" /><i>AVAILABLE</i></div>
                 <div className="profileIntro">
                   <span className="sectionLabel">ABOUT ME</span>
                   <h2>Setyo Agung Prabowo</h2>
-                  <p className="profileLead">System Information Graduate · Web Developer · Database Enthusiast · IT Support</p>
-                  <p>Saya menikmati pekerjaan yang menuntut ketelitian: memahami kebutuhan pengguna, menelusuri penyebab masalah, menyusun data, lalu menerjemahkannya menjadi solusi yang mudah digunakan.</p>
-                  <div className="contactActions"><a className="primaryButton" href="mailto:setyo@example.com">Kirim email <span>→</span></a><button className="secondaryButton" onClick={() => window.print()}>Download CV</button></div>
+                  <p className="profileLead">S1 Sistem Informasi · Web Development · Data Processing · IT Support</p>
+                  <p>Lulusan S1 Sistem Informasi dengan pemahaman dalam pengembangan web, pengolahan data, dokumentasi, dan analisis proses bisnis. Terbiasa menyusun laporan, mengolah data, serta menganalisis permasalahan secara terstruktur. Teliti, adaptif, komunikatif, dan terus belajar teknologi baru.</p>
+                  <div className="contactActions"><a className="primaryButton" href="mailto:setyoagungprab@gmail.com">Kirim email <span>→</span></a><a className="secondaryButton" href="https://github.com/Readwips" target="_blank" rel="noreferrer">GitHub</a><a className="secondaryButton" href="/CV_Setyo_Agung_Prabowo.pdf" download>Download CV</a></div>
                 </div>
               </div>
               <div className="profileFacts">
-                <div><span>LOCATION</span><strong>Jakarta, Indonesia</strong></div>
-                <div><span>FOCUS ROLES</span><strong>IT Support · Application Support · Junior System Analyst</strong></div>
-                <div><span>WORK MODE</span><strong>On-site · Hybrid · Remote</strong></div>
-                <div><span>LANGUAGE</span><strong>Bahasa Indonesia · English</strong></div>
+                <div><span>LOCATION</span><strong>Bojonegoro, Jawa Timur</strong></div>
+                <div><span>EMAIL</span><a href="mailto:setyoagungprab@gmail.com">setyoagungprab@gmail.com</a></div>
+                <div><span>PHONE</span><a href="tel:+6283848222144">0838-4822-2144</a></div>
+                <div><span>GITHUB</span><a href="https://github.com/Readwips" target="_blank" rel="noreferrer">github.com/Readwips ↗</a></div>
+              </div>
+              <div className="resumeGrid">
+                <article>
+                  <span className="sectionLabel">EDUCATION</span>
+                  <div className="resumeItem"><time>2021–2025</time><div><strong>Universitas Terbuka</strong><p>S1 Sistem Informasi</p></div></div>
+                  <div className="resumeItem"><time>2018–2021</time><div><strong>SMKN 2 Bojonegoro</strong><p>Teknik Elektronika Industri</p></div></div>
+                </article>
+                <article>
+                  <span className="sectionLabel">EXPERIENCE</span>
+                  <div className="resumeItem"><time>DISHUB</time><div><strong>Dinas Perhubungan Kabupaten Bojonegoro</strong><p>Mengelola dan memvalidasi data operasional serta menyusun laporan data untuk kebutuhan internal.</p></div></div>
+                </article>
               </div>
             </section>
           )}
