@@ -6,8 +6,6 @@ type View =
   | "overview"
   | "projects"
   | "sql"
-  | "support"
-  | "jobs"
   | "learning"
   | "profile";
 
@@ -15,8 +13,6 @@ const navItems: { id: View; label: string; mark: string }[] = [
   { id: "overview", label: "Overview", mark: "OV" },
   { id: "projects", label: "Projects", mark: "PR" },
   { id: "sql", label: "SQL Lab", mark: "SQ" },
-  { id: "support", label: "Support Desk", mark: "IT" },
-  { id: "jobs", label: "Job Tracker", mark: "JB" },
   { id: "learning", label: "Learning", mark: "LR" },
   { id: "profile", label: "Profile", mark: "ME" },
 ];
@@ -35,19 +31,6 @@ const projects = [
     accent: "lime",
     url: "https://github.com/Readwips/web_tracking_barang",
     demo: "https://readwips.github.io/web_tracking_barang/",
-  },
-  {
-    name: "CareerPath Job Tracker",
-    type: "Mobile-first Career System",
-    status: "Completed",
-    problem:
-      "Riwayat lamaran tersebar dan tindak lanjut setiap perusahaan mudah terlewat.",
-    solution:
-      "Aplikasi mobile-first yang dapat berjalan offline, memantau seluruh pipeline lamaran, dan tersedia sebagai Android APK.",
-    stack: ["HTML", "CSS", "JavaScript", "Android", "Offline"],
-    metric: "Web + Android APK",
-    accent: "orange",
-    url: "https://github.com/Readwips/web_lamaran_track2",
   },
   {
     name: "WhatsApp to Google Sheets",
@@ -78,51 +61,8 @@ const projects = [
   },
 ];
 
-const tickets = [
-  {
-    id: "#IT-024",
-    issue: "Printer finance tidak terdeteksi",
-    category: "Printer",
-    priority: "High",
-    status: "Resolved",
-    user: "Staff Finance",
-    cause: "Driver printer corrupt setelah pembaruan Windows.",
-    solution: "Remove driver lama, instal driver terbaru, restart spooler, lalu test printing.",
-  },
-  {
-    id: "#IT-023",
-    issue: "Laptop lambat saat membuka aplikasi kantor",
-    category: "Hardware",
-    priority: "Medium",
-    status: "Resolved",
-    user: "Staff Admin",
-    cause: "RAM penuh, startup berlebih, dan ruang penyimpanan tersisa 8%.",
-    solution: "Audit startup, bersihkan temporary files, dan optimalkan penggunaan storage.",
-  },
-  {
-    id: "#IT-022",
-    issue: "Akun pengguna terkunci setelah gagal login",
-    category: "Account",
-    priority: "Low",
-    status: "Documented",
-    user: "Staff Gudang",
-    cause: "Batas percobaan login tercapai.",
-    solution: "Verifikasi pengguna, reset kredensial, lalu dokumentasikan langkah pencegahan.",
-  },
-];
-
-const applications = [
-  { company: "Nusantara Digital", role: "IT Support", date: "22 Jul 2026", status: "Interview" },
-  { company: "Arunika Retail", role: "Application Support", date: "19 Jul 2026", status: "Process" },
-  { company: "DataKita", role: "Junior Data Admin", date: "17 Jul 2026", status: "Process" },
-  { company: "Satu Sistem", role: "Junior Web Developer", date: "14 Jul 2026", status: "Applied" },
-  { company: "Karya Teknologi", role: "Helpdesk", date: "10 Jul 2026", status: "Rejected" },
-];
-
 const searchIndex: { title: string; subtitle: string; view: View }[] = [
   ...projects.map((item) => ({ title: item.name, subtitle: item.type, view: "projects" as View })),
-  ...tickets.map((item) => ({ title: item.issue, subtitle: `${item.id} · ${item.category}`, view: "support" as View })),
-  ...applications.map((item) => ({ title: item.company, subtitle: item.role, view: "jobs" as View })),
   { title: "Query produk terlaris", subtitle: "SQL Lab", view: "sql" },
   { title: "Skill matrix", subtitle: "Learning journey", view: "learning" },
 ];
@@ -144,7 +84,6 @@ function PageTitle({ eyebrow, title, copy }: { eyebrow: string; title: string; c
 export default function Home() {
   const [active, setActive] = useState<View>("overview");
   const [query, setQuery] = useState("");
-  const [ticketFilter, setTicketFilter] = useState("All");
 
   const searchResults = useMemo(() => {
     if (!query.trim()) return [];
@@ -153,10 +92,6 @@ export default function Home() {
       .filter((item) => `${item.title} ${item.subtitle}`.toLowerCase().includes(term))
       .slice(0, 5);
   }, [query]);
-
-  const filteredTickets = ticketFilter === "All"
-    ? tickets
-    : tickets.filter((ticket) => ticket.category === ticketFilter);
 
   const changeView = (view: View) => {
     setActive(view);
@@ -193,7 +128,6 @@ export default function Home() {
             >
               <span className="navMark">{item.mark}</span>
               {item.label}
-              {item.id === "support" && <em>3</em>}
             </button>
           ))}
         </nav>
@@ -284,66 +218,14 @@ export default function Home() {
                   <p>Skema dan latihan query</p>
                   <button onClick={() => changeView("sql")}>Buka lab ↗</button>
                 </article>
-                <article className="statCard">
-                  <span>03 / IT CASES</span>
-                  <strong>15</strong>
-                  <p>Kasus terdokumentasi</p>
-                  <button onClick={() => changeView("support")}>Lihat kasus ↗</button>
-                </article>
                 <article className="statCard darkCard">
-                  <span>04 / TECHNOLOGY</span>
+                  <span>03 / TECHNOLOGY</span>
                   <strong>12</strong>
                   <p>Tools dalam matriks skill</p>
                   <button onClick={() => changeView("learning")}>Lihat matriks ↗</button>
                 </article>
               </div>
 
-              <div className="dashboardGrid">
-                <article className="panel activityPanel">
-                  <div className="panelHeader">
-                    <div><span>RECENT ACTIVITY</span><h2>Jejak kerja terbaru</h2></div>
-                    <button onClick={() => changeView("learning")}>Semua aktivitas</button>
-                  </div>
-                  <div className="activityList">
-                    {[
-                      ["24 JUL", "Mendokumentasikan query SQL reporting", "Database Lab", "lime"],
-                      ["21 JUL", "Menyelesaikan kasus printer finance", "Support Desk", "orange"],
-                      ["18 JUL", "Memperbarui dashboard penjualan UMKM", "Project", "blue"],
-                      ["14 JUL", "Menambahkan empat lamaran baru", "Job Tracker", "navy"],
-                    ].map(([date, title, tag, tone]) => (
-                      <div className="activityItem" key={title}>
-                        <time>{date}</time>
-                        <i className={tone} />
-                        <div><strong>{title}</strong><span>{tag}</span></div>
-                        <b>↗</b>
-                      </div>
-                    ))}
-                  </div>
-                </article>
-
-                <article className="panel pipelinePanel">
-                  <div className="panelHeader">
-                    <div><span>JOB PIPELINE</span><h2>Lamaran aktif</h2></div>
-                    <StatusPill tone="positive">+12% bulan ini</StatusPill>
-                  </div>
-                  <div className="pipelineBody">
-                    <div className="donut"><span><strong>25</strong>total</span></div>
-                    <div className="legend">
-                      <div><i className="lime" /><span>Interview</span><strong>4</strong></div>
-                      <div><i className="blue" /><span>Proses</span><strong>7</strong></div>
-                      <div><i className="orange" /><span>Ditolak</span><strong>10</strong></div>
-                      <div><i className="gray" /><span>Lainnya</span><strong>4</strong></div>
-                    </div>
-                  </div>
-                  <button className="wideLink" onClick={() => changeView("jobs")}>Buka job tracker <span>→</span></button>
-                </article>
-              </div>
-
-              <div className="focusStrip">
-                <div><span>CURRENT FOCUS</span><strong>SQL · Database Design · REST API</strong></div>
-                <div><span>NEXT UP</span><strong>Docker · Cloud · CI/CD</strong></div>
-                <div><span>LAST UPDATED</span><strong>24 July 2026</strong></div>
-              </div>
             </section>
           )}
 
@@ -404,56 +286,6 @@ export default function Home() {
                   <div className="codeTop"><span>RESULT</span><StatusPill tone="positive">3 rows · 18ms</StatusPill></div>
                   <table><thead><tr><th>product_name</th><th>total_sold</th></tr></thead><tbody><tr><td>Kopi Arabika</td><td>120</td></tr><tr><td>Mie Instan</td><td>90</td></tr><tr><td>Teh Melati</td><td>75</td></tr></tbody></table>
                   <div className="miniBars"><div><span>Kopi Arabika</span><i style={{ width: "100%" }} /></div><div><span>Mie Instan</span><i style={{ width: "75%" }} /></div><div><span>Teh Melati</span><i style={{ width: "62%" }} /></div></div>
-                </article>
-              </div>
-            </section>
-          )}
-
-          {active === "support" && (
-            <section className="view animateIn">
-              <PageTitle eyebrow="IT OPERATIONS / KNOWLEDGE BASE" title="Masalah dicatat. Solusi dapat diulang." copy="Simulasi helpdesk yang menunjukkan alur diagnosis, penanganan, dan dokumentasi insiden operasional." />
-              <div className="filterRow">
-                {["All", "Printer", "Hardware", "Account"].map((filter) => <button key={filter} className={ticketFilter === filter ? "active" : ""} onClick={() => setTicketFilter(filter)}>{filter}</button>)}
-                <span>{filteredTickets.length} kasus ditampilkan</span>
-              </div>
-              <div className="ticketList">
-                {filteredTickets.map((ticket) => (
-                  <details className="ticketCard" key={ticket.id}>
-                    <summary>
-                      <span className="ticketId">{ticket.id}</span>
-                      <div><strong>{ticket.issue}</strong><small>{ticket.user} · {ticket.category}</small></div>
-                      <StatusPill tone={ticket.priority === "High" ? "danger" : "neutral"}>{ticket.priority}</StatusPill>
-                      <StatusPill tone="positive">{ticket.status}</StatusPill>
-                      <b>⌄</b>
-                    </summary>
-                    <div className="ticketDetail">
-                      <div><span>DIAGNOSIS</span><p>{ticket.cause}</p></div>
-                      <div><span>RESOLUTION</span><p>{ticket.solution}</p></div>
-                    </div>
-                  </details>
-                ))}
-              </div>
-              <div className="supportSteps">
-                {[["01", "Identify", "Kumpulkan gejala dan konteks pengguna."], ["02", "Diagnose", "Uji kemungkinan penyebab secara sistematis."], ["03", "Resolve", "Terapkan solusi dengan risiko terkendali."], ["04", "Document", "Simpan pengetahuan agar dapat digunakan ulang."]].map(([no, name, desc]) => <div key={no}><span>{no}</span><strong>{name}</strong><p>{desc}</p></div>)}
-              </div>
-            </section>
-          )}
-
-          {active === "jobs" && (
-            <section className="view animateIn">
-              <PageTitle eyebrow="CAREER OPERATIONS / JOB TRACKER" title="Pencarian kerja, dikelola seperti pipeline." copy="Dashboard personal untuk menjaga tindak lanjut tetap terarah dan melihat pola dari setiap lamaran." />
-              <div className="jobStats">
-                {[["25", "Total lamaran", "+4 bulan ini"], ["04", "Interview", "16% conversion"], ["07", "Dalam proses", "Butuh follow-up"], ["01", "Offer", "Target berikutnya"]].map(([number, label, note], index) => <article key={label} className={index === 0 ? "featured" : ""}><span>{label}</span><strong>{number}</strong><small>{note}</small></article>)}
-              </div>
-              <div className="jobGrid">
-                <article className="panel applicationTable">
-                  <div className="panelHeader"><div><span>APPLICATIONS</span><h2>Lamaran terbaru</h2></div><button>+ Tambah lamaran</button></div>
-                  <div className="tableScroll"><table><thead><tr><th>Perusahaan</th><th>Posisi</th><th>Tanggal</th><th>Status</th></tr></thead><tbody>{applications.map((app) => <tr key={app.company}><td><strong>{app.company}</strong></td><td>{app.role}</td><td>{app.date}</td><td><StatusPill tone={app.status === "Interview" ? "positive" : app.status === "Rejected" ? "danger" : "neutral"}>{app.status}</StatusPill></td></tr>)}</tbody></table></div>
-                </article>
-                <article className="panel roleChart">
-                  <div className="panelHeader"><div><span>ROLE MIX / JULY</span><h2>Posisi yang dituju</h2></div></div>
-                  {[['IT Support', 7, '100%'], ['Programmer', 4, '57%'], ['Admin Data', 3, '43%'], ['Teknisi', 2, '29%']].map(([role, count, width]) => <div className="roleBar" key={role}><div><span>{role}</span><strong>{count}</strong></div><i><b style={{ width }} /></i></div>)}
-                  <p className="chartNote">Fokus terbesar tetap pada peran yang menggabungkan troubleshooting dan pemahaman sistem.</p>
                 </article>
               </div>
             </section>
