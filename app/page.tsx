@@ -293,15 +293,17 @@ export default function Home() {
 
           {active === "learning" && (
             <section className="view animateIn">
-              <PageTitle eyebrow="CONTINUOUS IMPROVEMENT / LEARNING" title="Belajar dengan bukti, bukan progress bar." copy="Setiap skill ditempatkan berdasarkan pengalaman nyata: sudah dipakai, dipahami, atau sedang dipelajari." />
+              <PageTitle eyebrow="CONTINUOUS IMPROVEMENT / LEARNING" title="Perjalanan belajar dan pengembangan diri." copy="Ringkasan pendidikan dan kemampuan yang saya pelajari serta terapkan secara bertahap melalui pendidikan dan proyek." />
               <div className="learningLayout">
                 <article className="journeyPanel">
                   <span className="sectionLabel">LEARNING JOURNEY</span>
                   {[
+                    ["2009–2015", "Pendidikan Dasar", "SDN 1 Kauman Bojonegoro"],
+                    ["2015–2018", "Sekolah Menengah Pertama", "SMPN 6 Bojonegoro"],
                     ["2018–2021", "Teknik Elektronika Industri", "SMKN 2 Bojonegoro · dasar perangkat keras dan elektronika"],
                     ["2021–2025", "S1 Sistem Informasi", "Universitas Terbuka · data, dokumentasi sistem, dan analisis proses bisnis"],
                     ["NOW", "Project-based learning", "Laravel · MySQL · REST API · JavaScript · workflow automation"],
-                  ].map(([year, title, skills], index) => <div className="journeyItem" key={year}><time>{year}</time><i className={index === 2 ? "current" : ""} /><div><strong>{title}</strong><p>{skills}</p>{index === 2 && <StatusPill tone="positive">Currently learning</StatusPill>}</div></div>)}
+                  ].map(([year, title, skills]) => <div className="journeyItem" key={year}><time>{year}</time><i className={year === "NOW" ? "current" : ""} /><div><strong>{title}</strong><p>{skills}</p>{year === "NOW" && <StatusPill tone="positive">Currently learning</StatusPill>}</div></div>)}
                 </article>
                 <div className="skillPanels">
                   {[
