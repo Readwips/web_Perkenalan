@@ -104,14 +104,6 @@ export default function Home() {
   return (
     <div className="appShell">
       <aside className="sidebar">
-        <button className="brand" onClick={() => changeView("overview")} aria-label="Buka overview">
-          <span className="brandMark">SA</span>
-          <span>
-            <strong>SETYO AGUNG P</strong>
-            <small>IT OPERATIONS</small>
-          </span>
-        </button>
-
         <div className="identityCard">
           <img className="avatar" src={`${basePath}/setyo-agung-prabowo.jpg`} alt="Foto Setyo Agung P" />
           <div>
@@ -144,7 +136,9 @@ export default function Home() {
 
       <main className="mainContent">
         <div className="topbar">
-          <button className="mobileBrand" onClick={() => changeView("overview")}>SA</button>
+          <button className="mobileBrand" onClick={() => changeView("overview")} aria-label="Buka overview">
+            <img src={`${basePath}/setyo-agung-prabowo.jpg`} alt="" />
+          </button>
           <div className="searchWrap">
             <span aria-hidden="true">⌕</span>
             <input
